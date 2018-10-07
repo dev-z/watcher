@@ -1,0 +1,3 @@
+aws-exports.*
+aws-config.*
+/node_modules/
