@@ -13,8 +13,7 @@ const sequelize = new Sequelize(database, username, password, {
   port,
   dialect: 'postgres',
   operatorsAliases: false,
-  // Allow logging only in dev stage
-  logging: (process.env.STAGE === 'development'),
+  logging: false,
   pool: {
     max: 5,
     min: 0,

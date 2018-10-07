@@ -81,9 +81,11 @@ node node_modules/eslint/bin/eslint --ext .js index.js src
 ## Running tests ##
 
 Uses Mocha and ChaiJS to run automated tests. You can use the results to integrate with CI/CD tools.
-Run the command "npm test" to run the tests.
+Run the following command to run the tests.
 
-* Please note that running the tests creates a new db with _test as the postfix.
+```
+npm run test
+```
 
 ## Contribution guidelines ##
 * TODO

@@ -89,7 +89,6 @@ module.exports = function registerRoutes(router) {
                       res.status(200).json({
                         message: 'outbound sms ok',
                         error: '',
-                        limit,
                       });
                     } else {
                       res.status(400).json({

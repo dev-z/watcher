@@ -25,21 +25,30 @@ module.exports = function registerBasicAuthMiddleware(router) {
       }
       // 1.a. Proceed only if username and password are present.
       if (username && password) {
-        // 2.a. Verify that the username and password(alias for auth_id) exists in db.
+        // 2.a. Verify that the username exists in db.
         Account.findOne({
           where: {
             username,
-            auth_id: password,
           },
         }).then((account) => {
-          // if record with given search criteria is found, save to request for future use.
+          // if record with given search criteria is found and password matches,
+          // save to request for future use.
           if (account) {
-            req.requesterData = account;
-            // do logging or whatever is needed
-            next();
+            // match if auth_id is equal to the given password
+            const pwd = account.get('auth_id');
+            if (pwd === password) {
+              req.requesterData = account;
+              // do logging or whatever is needed
+              next();
+            } else {
+              res.status(401).send({
+                message: 'Invalid credentials',
+                error: 'INVALID_CREDENTIALS',
+              });
+            }
           } else {
-          // No record is found, return 403: Forbidden.
-            res.status(403).send({
+          // No record is found, return 401: Unauthorized.
+            res.status(401).send({
               message: 'Invalid credentials',
               error: 'INVALID_CREDENTIALS',
             });
